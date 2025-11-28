@@ -83,3 +83,22 @@
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+<script>
+// Ürün bilgilerini JS nesnesi olarak tanımlıyoruz
+const product = {
+    name: "Omeprazole 20mg",
+    price: 60,
+    oldPrice: 75,
+    desc: "Omeprazole, mide asidini azaltan bir proton pompa inhibitörüdür ve ülser tedavisinde etkilidir.",
+    image: "images/product_09.png"
+};
+
+// Sepete ekleme işlemi
+document.querySelector('.btn.btn-primary').addEventListener('click', function(e){
+    e.preventDefault(); // sayfanın yenilenmesini engeller
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(product.name + " sepete eklendi!");
+});
+</script>

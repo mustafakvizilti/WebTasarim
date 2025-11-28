@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Ürün Yönetimi</title>
+<style>
+    body {
+        font-family: Arial;
+        padding: 30px;
+        background: #f5f5f5;
+    }
+    .box {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;
+        margin-bottom: 20px;
+    }
+    input, textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+    }
+    .drop {
+        border: 2px dashed #888;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        margin-top: 10px;
+        background: #fafafa;
+    }
+    .product {
+        padding: 15px;
+        background: white;
+        border-radius: 10px;
+        display: flex;
+        gap: 15px;
+        margin-bottom: 10px;
+        box-shadow: 0 0 5px #ccc;
+    }
+    .product img {
+        width: 80px;
+        height: 80px;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+    button {
+        padding: 8px 14px;
+        background: #4CAF50;
+        color: white;
+        border: none;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .delete-btn {
+        background: #e63946;
+    }
+</style>
+</head>
+<body>
+
+<h2>Ürün Yönetimi</h2>
+
+<div class="box">
+    <h3>Yeni Ürün Ekle</h3>
+
+    <label>Ürün Adı</label>
+    <input type="text" id="name">
+
+    <label>Fiyat</label>
+    <input type="text" id="price">
+
+    <label>Açıklama</label>
+    <textarea id="desc"></textarea>
+
+    <label>Ürün Resmi</label>
+    <div class="drop" id="dropArea">Resmi buraya sürükleyin veya tıklayın.</div>
+
+    <button onclick="addProduct()">Ürün Ekle</button>
+</div>
+
+<h3>Mevcut Ürünler</h3>
+<div id="list"></div>
+
+<script>
+let imageBase64 = "";
+
+document.getElementById("dropArea").onclick = () => {
+    let inp = document.createElement("input");
+    inp.type = "file";
+    inp.onchange = () => readImage(inp.files[0]);
+    inp.click();
+};
+
+document.getElementById("dropArea").ondragover = e => e.preventDefault();
+document.getElementById("dropArea").ondrop = e => {
+    e.preventDefault();
+    readImage(e.dataTransfer.files[0]);
+};
+
+function readImage(file) {
+    let reader = new FileReader();
+    reader.onload = () => {
+        imageBase64 = reader.result;
+        document.getElementById("dropArea").innerHTML = `<img src="${imageBase64}" style="width:120px;">`;
+    };
+    reader.readAsDataURL(file);
+}
+
+function loadProducts() {
+    let products = JSON.parse(localStorage.getItem("products") || "[]");
+    let html = "";
+
+    products.forEach((p, i) => {
+        html += `
+            <div class="product">
+                <img src="${p.image}">
+                <div>
+                    <b>${p.name}</b><br>
+                    ${p.price} TL<br>
+                    <small>${p.desc}</small><br>
+                    <button class="delete-btn" onclick="deleteProduct(${i})">Sil</button>
+                </div>
+            </div>
+        `;
+    });
+
+    document.getElementById("list").innerHTML = html;
+}
+
+function addProduct() {
+    let name = document.getElementById("name").value;
+    let price = document.getElementById("price").value;
+    let desc = document.getElementById("desc").value;
+
+    if (!name || !price || !imageBase64) {
+        alert("Tüm alanlar zorunlu!");
+        return;
+    }
+
+    let products = JSON.parse(localStorage.getItem("products") || "[]");
+
+    products.push({
+        name,
+        price,
+        desc,
+        image: imageBase64
+    });
+
+    localStorage.setItem("products", JSON.stringify(products));
+    loadProducts();
+
+    alert("Ürün eklendi!");
+}
+
+function deleteProduct(i) {
+    let products = JSON.parse(localStorage.getItem("products") || "[]");
+    products.splice(i, 1);
+    localStorage.setItem("products", JSON.stringify(products));
+    loadProducts();
+}
+
+loadProducts();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; }
+        .card { border-radius: 10px; box-shadow: 0 0 10px #ccc; margin-bottom: 20px; }
+        .card-body { padding: 20px; }
+        .stats { display: flex; gap: 20px; flex-wrap: wrap; }
+        .stat { flex: 1; background: #fff; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 0 5px #ccc; }
+        canvas { background: #fff; border-radius: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<div class="stats">
+    <div class="stat">
+        <h4>Toplam Ürün</h4>
+        <p id="totalProducts">0</p>
+    </div>
+    <div class="stat">
+        <h4>Toplam Duyuru</h4>
+        <p id="totalAnnouncements">0</p>
+    </div>
+    <div class="stat">
+        <h4>Toplam Satış</h4>
+        <p id="totalSales">0</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <h5>Satış Bölgesi Dağılımı (Örnek)</h5>
+        <canvas id="regionChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Örnek veriler
+let products = JSON.parse(localStorage.getItem("products") || "[]");
+let announcements = JSON.parse(localStorage.getItem("announcements") || "[]");
+let sales = JSON.parse(localStorage.getItem("sales") || "[]"); // satışları saklamak için
+
+document.getElementById("totalProducts").innerText = products.length;
+document.getElementById("totalAnnouncements").innerText = announcements.length;
+document.getElementById("totalSales").innerText = sales.length;
+
+
+// Satış bölgesi grafiği (yalancı veri)
+let regions = ['İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Antalya'];
+let regionSales = regions.map(() => Math.floor(Math.random() * 100)); // rastgele satış verisi
+
+new Chart(document.getElementById('regionChart'), {
+    type: 'doughnut',
+    data: {
+        labels: regions,
+        datasets: [{
+            label: 'Bölge Satışları',
+            data: regionSales,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)'
+            ]
+        }]
+    },
+    options: { responsive: true }
+});
+</script>
+
+</body>
+</html>

@@ -83,3 +83,22 @@
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+<script>
+// Ürün bilgilerini JS nesnesi olarak tanımlıyoruz
+const product = {
+    name: "Cetirizine 10mg",
+    price: 50,
+    oldPrice: 65,
+    desc: "Cetirizine, alerjik reaksiyonları hafifleten etkili bir antihistamindir.",
+    image: "images/product_07.png"
+};
+
+// Sepete ekleme işlemi
+document.querySelector('.btn.btn-primary').addEventListener('click', function(e){
+    e.preventDefault(); // sayfanın yenilenmesini engeller
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(product.name + " sepete eklendi!");
+});
+</script>

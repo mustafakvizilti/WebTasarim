@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Admin Giriş</title>
+<style>
+    body {
+        font-family: Arial;
+        background: #f3f3f3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .box {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        width: 350px;
+        box-shadow: 0 0 10px #bbb;
+        text-align: center;
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #0066ff;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Admin Giriş</h2>
+    <input type="password" id="pass" placeholder="Şifreyi girin">
+    <button onclick="login()">Giriş Yap</button>
+</div>
+
+<script>
+const adminPassword = "12345"; // BURADAN ŞİFREYİ DEĞİŞTİREBİLİRSİN
+
+function login() {
+    let p = document.getElementById("pass").value;
+    if (p === adminPassword) {
+        localStorage.setItem("adminLogged", "true");
+        window.location.href = "admin-panel.html";
+    } else {
+        alert("Hatalı şifre!");
+    }
+}
+</script>
+
+</body>
+</html>

@@ -90,3 +90,23 @@
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+<script>
+// Ürün bilgilerini JS nesnesi olarak tanımlıyoruz
+const product = {
+    name: "Ibuprofen 400mg",
+    price: 45,
+    oldPrice: 60,
+    desc: "Ibuprofen, ağrı, inflamasyon ve ateşi azaltmaya yardımcı olan yaygın bir nonsteroid antiinflamatuvar ilaçtır.",
+    image: "images/product_02.png"
+};
+
+// Sepete ekleme işlemi
+document.querySelector('.btn.btn-primary').addEventListener('click', function(e){
+    e.preventDefault(); // sayfanın yenilenmesini engeller
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(product.name + " sepete eklendi!");
+});
+</script>
+

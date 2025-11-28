@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Sipariş Yönetimi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style>
+    body { font-family: Arial; background: #f4f6f8; padding: 20px; }
+    table { background: #fff; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+    th, td { padding: 10px; text-align: center; }
+    button { padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; }
+    .delete-btn { background: #e63946; color: white; }
+</style>
+</head>
+<body>
+
+<h2>Sipariş Yönetimi</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Sipariş No</th>
+            <th>Müşteri</th>
+            <th>Ürün</th>
+            <th>Adet</th>
+            <th>Tutar</th>
+            <th>Durum</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody id="orderList"></tbody>
+</table>
+
+<script>
+// Örnek siparişler
+let orders = JSON.parse(localStorage.getItem("orders") || "[]");
+
+// tabloyu doldur
+function loadOrders() {
+    let tbody = document.getElementById("orderList");
+    tbody.innerHTML = "";
+    orders.forEach((o, i) => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${i+1}</td>
+                <td>${o.customer}</td>
+                <td>${o.product}</td>
+                <td>${o.quantity}</td>
+                <td>${o.total} TL</td>
+                <td>${o.status || "Beklemede"}</td>
+                <td><button class="delete-btn" onclick="deleteOrder(${i})">Sil</button></td>
+            </tr>
+        `;
+    });
+}
+
+// sipariş sil
+function deleteOrder(i) {
+    orders.splice(i,1);
+    localStorage.setItem("orders", JSON.stringify(orders));
+    loadOrders();
+}
+
+// Örnek sipariş ekleme (sadece test için)
+if(orders.length===0){
+    orders.push({customer:"Ahmet", product:"Paracetamol", quantity:2, total:190});
+    orders.push({customer:"Ayşe", product:"İbuprofen", quantity:1, total:80});
+    localStorage.setItem("orders", JSON.stringify(orders));
+}
+
+loadOrders();
+</script>
+
+</body>
+</html>
