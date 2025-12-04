@@ -10,36 +10,49 @@
   <link rel="stylesheet" href="fonts/icomoon/style.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+    }
+  </style>
 </head>
 
 <body>
+
   <div class="site-wrap">
 
-    <!-- Navbar -->
+    <!-- NAVBAR (Index ile aynı) -->
     <div class="site-navbar py-2">
-      <div class="container">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="site-logo">
-            <a href="index.html" class="js-logo-clone"><strong class="text-primary">Well</strong>Phoria</a>
-          </div>
+      <div class="search-wrap">
+        <div class="container">
+          <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+          <form action="#" method="post">
+            <input type="text" class="form-control" placeholder="Aramak istediğiniz kelimeyi yazın ve Enter'a basın...">
+          </form>
+        </div>
+      </div>
 
+      <div class="container">
+        <div class="d-flex align-items-center justify-content-center">
+          <div class="logo">
+            <div class="site-logo">
+              <a href="index.html" class="js-logo-clone"><strong class="text-primary">Well</strong>Phoria</a>
+            </div>
+          </div>
           <div class="main-nav d-none d-lg-block">
-            <nav class="site-navigation text-right text-md-center">
+            <nav class="site-navigation text-center text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li><a href="index.html">Ana Sayfa</a></li>
+                <li class="active"><a href="index.html">Ana Sayfa</a></li>
                 <li><a href="shop.html">Mağaza</a></li>
-                <li><a href="receteli.html">Reçeteli</a></li>
-                <li><a href="recetesiz.html">Reçetesiz</a></li>
+                <li><a href="about.html">Hakkımızda</a></li>
                 <li><a href="contact.html">İletişim</a></li>
+                <div id="userArea" class="d-inline-block ml-3"></div>
+
               </ul>
             </nav>
           </div>
-
-          <div class="icons">
-            <a href="cart.html" class="icons-btn d-inline-block bag">
-              <span class="icon-shopping-bag"></span>
-            </a>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -61,7 +74,7 @@
               <p>WellPhoria’dan yapılan alışverişlerde, belirli tutarın üzerindeki siparişlerde ücretsiz kargo hizmetimiz geçerlidir.</p>
               <ul>
                 <li>Ücretsiz kargo, 150₺ ve üzeri siparişler için geçerlidir.</li>
-                <li>Kargo süresi genellikle 2-5 iş günüdür.</li>
+                <li>Kargo süresi genellikle 2–5 iş günüdür.</li>
                 <li>Kargo firması ile takip numarası paylaşılmaktadır.</li>
                 <li>Stok durumuna göre teslimat süresi değişiklik gösterebilir.</li>
                 <li>Özel ürünler ve kampanyalı ürünler kargo şartlarından muaf olabilir.</li>
@@ -73,48 +86,59 @@
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="site-footer bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-4 mb-4">
-            <h3 class="footer-heading mb-4">Hakkımızda</h3>
-            <p>WellPhoria, sağlıklı yaşamı destekleyen ürünleri güvenle sunar.</p>
-          </div>
+    <!-- FOOTER (Index ile aynı) -->
+     <footer class="site-footer bg-light">
+  <div class="container">
+    <div class="row">
 
-          <div class="col-lg-3 col-md-6 mb-4">
-            <h3 class="footer-heading mb-4">Hızlı Linkler</h3>
-            <ul class="list-unstyled">
-              <li><a href="shop.html">Mağaza</a></li>
-              <li><a href="receteli.html">Reçeteli</a></li>
-              <li><a href="recetesiz.html">Reçetesiz</a></li>
-              <li><a href="contact.html">İletişim</a></li>
-            </ul>
-          </div>
-
-          <div class="col-md-6 col-lg-3">
-            <h3 class="footer-heading mb-4">İletişim</h3>
-            <ul class="list-unstyled">
-              <li>İstanbul, Türkiye</li>
-              <li>+90 532 000 0000</li>
-              <li>info@wellphoria.com</li>
-            </ul>
-          </div>
+      <!-- Hakkımızda -->
+      <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+        <div class="block-7">
+          <h3 class="footer-heading mb-4">Hakkımızda <strong class="text-primary">WellPhoria</strong></h3>
+          <p>Sağlıklı yaşam ve kaliteli ürünlerle yanınızdayız. Güvenilir alışveriş ve hızlı teslimat sunuyoruz.</p>
         </div>
-
-        <div class="row pt-4 text-center">
-          <div class="col-md-12">
-            <p>© <script>document.write(new Date().getFullYear());</script> WellPhoria — Tüm Hakları Saklıdır.</p>
-          </div>
-        </div>
-
       </div>
-    </footer>
+
+      <!-- Hızlı Linkler -->
+      <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
+        <h3 class="footer-heading mb-4">Hızlı Linkler</h3>
+        <ul class="list-unstyled">
+          <li><a href="receteli.html">Reçeteli İlaçlar</a></li>
+          <li><a href="recetesiz.html">Reçetesiz İlaçlar</a></li>
+          <li><a href="basagrisi.html">Ağrı Kesiciler</a></li>
+        </ul>
+      </div>
+
+      <!-- İletişim -->
+      <div class="col-md-6 col-lg-3">
+        <div class="block-5 mb-5">
+          <h3 class="footer-heading mb-4">İletişim</h3>
+          <ul class="list-unstyled">
+            <li class="address">İstanbul, Türkiye</li>
+            <li class="phone"><a href="#">+90 532 000 0000</a></li>
+            <li class="email">info@WellPhoria.com</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row pt-5 mt-5 text-center">
+      <div class="col-md-12">
+        <p>
+          Copyright &copy;
+          <script>document.write(new Date().getFullYear());</script> WellPhoria. Tüm hakları saklıdır.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
 
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

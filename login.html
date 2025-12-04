@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Giriş Yap — WellPhoria</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <style>
+    body {
+      background: #f2f4f7;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .form-card {
+      max-width: 450px;
+      margin: 80px auto;
+      padding: 30px;
+      border-radius: 15px;
+      background: #fff;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+    }
+    .title {
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-card">
+  <h3 class="title">Giriş Yap</h3>
+
+  <form id="loginForm">
+    <div class="mb-3">
+      <label class="form-label">E-posta</label>
+      <input type="email" id="email" class="form-control" placeholder="E-posta girin" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Şifre</label>
+      <input type="password" id="password" class="form-control" placeholder="Şifre girin" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+  </form>
+
+  <p class="text-center mt-3">
+    Hesabın yok mu? <a href="register.html">Kayıt Ol</a>
+  </p>
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+  const pass = document.getElementById("password").value;
+
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+
+  const user = users.find(u => u.email === email && u.password === pass);
+
+  if (user) {
+    alert("Giriş başarılı!");
+
+    // Şu anki kullanıcıyı tut
+    localStorage.setItem("currentUser", JSON.stringify(user));
+
+    window.location.href = "index.html";
+  } else {
+    alert("E-posta veya şifre hatalı!");
+  }
+});
+</script>
+
+</body>
+</html>

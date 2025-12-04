@@ -47,6 +47,8 @@
                 <li><a href="about.html">Hakkımızda</a></li>
                 <li><a href="contact.html">İletişim</a></li>
                 <li><a href="admin-login.html" style="color: red;"><strong>Admin</strong></a></li>
+                <div id="userArea" class="d-inline-block ml-3"></div>
+
               </ul>
             </nav>
           </div>
@@ -182,7 +184,7 @@
           <div class="col-lg-7">
             <h3 class="text-white">%55’e varan indirimler için kaydolun</h3>
             <p class="text-white">Sağlığınızı destekleyecek fırsatları kaçırmayın. Hemen üye olun ve indirimleri yakalayın.</p>
-            <p class="mb-0"><a href="#" class="btn btn-outline-white">Kaydol</a></p>
+            <p class="mb-0"><a href="register.html" class="btn btn-outline-white">Kaydol</a></p>
           </div>
         </div>
       </div>
@@ -270,6 +272,37 @@
 
     loadAnnouncements();
   </script>
+  <script>
+// Giriş yapan kullanıcıyı yükle
+function loadUser() {
+  const userArea = document.getElementById("userArea");
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  // Eğer giriş yapan yoksa
+  if (!currentUser) {
+    userArea.innerHTML = `
+      <a href="login.html" class="btn btn-outline-primary btn-sm">Giriş Yap</a>
+      <a href="register.html" class="btn btn-primary btn-sm ml-2">Kayıt Ol</a>
+    `;
+    return;
+  }
+
+  // Giriş yapan varsa
+  userArea.innerHTML = `
+    <span class="mr-2 font-weight-bold">${currentUser.name}</span>
+    <button onclick="logout()" class="btn btn-danger btn-sm">Çıkış</button>
+  `;
+}
+
+// Çıkış fonksiyonu
+function logout() {
+  localStorage.removeItem("currentUser");
+  location.reload();
+}
+
+loadUser();
+</script>
+
 
 </body>
 </html>

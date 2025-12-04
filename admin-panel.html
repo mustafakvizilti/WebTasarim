@@ -13,69 +13,81 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
 
   <style>
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: #e6f7ff; /* Açık mavi ton */
-      margin: 0;
-      padding: 30px;
+    :root {
+      --wp-green: #3bb77e;
+      --wp-darkgreen: #2e9c69;
+      --wp-lightbg: #f3f6f8;
+      --wp-cardbg: #ffffff;
+      --wp-border: #d7e9dd;
     }
 
-    /* Navbar */
-    .navbar {
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--wp-lightbg);
+      margin: 0;
+      padding: 30px;
+      color: #333;
+    }
+
+    /* TOP BAR */
+    .admin-top {
+      background: var(--wp-cardbg);
+      border-left: 6px solid var(--wp-green);
+      padding: 18px 20px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    }
+
+    .admin-top h2 {
+      margin: 0;
+      font-size: 26px;
+      color: var(--wp-green);
+      font-weight: 700;
+    }
+
+    /* NAVBAR */
+    .admin-nav {
       display: flex;
       gap: 15px;
       margin-bottom: 30px;
+      flex-wrap: wrap;
     }
 
-    .navbar a {
-      padding: 10px 20px;
-      background: #0059ff; /* Ana renk */
-      color: white;
+    .admin-nav a {
+      padding: 10px 22px;
+      background: var(--wp-green);
+      color: #ffffff;
       text-decoration: none;
       border-radius: 8px;
-      font-weight: 600;
+      font-weight: 700;
       transition: 0.2s;
     }
 
-    .navbar a:hover {
-      background: #0048d1;
+    .admin-nav a:hover {
+      background: var(--wp-darkgreen);
     }
 
-    /* Üst Başlık */
-    .top {
-      background: #ffffff;
-      border-left: 8px solid #0059ff;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      border-radius: 10px;
-    }
-
-    .top h2 {
-      margin: 0;
-      font-size: 26px;
-      color: #0059ff;
-    }
-
-    /* Kartlar */
-    .card {
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    /* CARD */
+    .card-custom {
+      background: var(--wp-cardbg);
+      border-radius: 12px;
       margin-bottom: 25px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+      border: 1px solid var(--wp-border);
       overflow: hidden;
     }
 
-    .card-header {
-      background: #e6f7ff;
+    .card-custom-header {
+      background: #e8f5ee;
       padding: 15px 20px;
+      border-bottom: 1px solid var(--wp-border);
       font-size: 18px;
       font-weight: 700;
-      color: #0059ff;
-      border-bottom: 1px solid #b3e0ff;
+      color: var(--wp-green);
     }
 
-    .card-body {
+    .card-custom-body {
       padding: 20px;
     }
 
@@ -83,51 +95,57 @@
       width: 100%;
       padding: 12px;
       border-radius: 8px;
-      border: 1px solid #b3e0ff;
-      background: #f0f9ff;
-      font-size: 15px;
+      background: #f9fcfa;
+      border: 1px solid var(--wp-border);
       transition: 0.2s;
+      font-size: 15px;
     }
 
     textarea:focus, input:focus {
-      border-color: #0059ff;
-      box-shadow: 0 0 6px rgba(0, 89, 255, 0.3);
+      border-color: var(--wp-green);
+      box-shadow: 0 0 6px rgba(59, 183, 126, 0.35);
+      background: #ffffff;
     }
 
     button {
       padding: 12px 18px;
-      background: #0059ff;
+      background: var(--wp-green);
       color: #ffffff;
       border: none;
       border-radius: 8px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: 0.2s;
+      margin-top: 10px;
     }
 
     button:hover {
-      background: #0048d1;
+      background: var(--wp-darkgreen);
     }
 
+    /* LOGOUT */
     .logout {
-      background: #ff4d4d;
+      background: #ff4f4f;
       margin-top: 20px;
     }
 
     .logout:hover {
-      background: #e63946;
+      background: #d93c3c;
     }
 
-    .announcement-item, .message-item {
+    /* ITEMS */
+    .announcement-item,
+    .message-item {
       padding: 12px;
-      margin-bottom: 10px;
-      background: #f0f9ff;
-      border-left: 5px solid #0059ff;
-      border-radius: 6px;
+      background: #f5faf7;
+      border-left: 5px solid var(--wp-green);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-radius: 6px;
+      margin-bottom: 10px;
       font-size: 15px;
+      border: 1px solid var(--wp-border);
     }
 
     .delete-btn {
@@ -140,38 +158,39 @@
     }
 
     .delete-btn:hover {
-      color: #ff0000;
+      color: red;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="top">
+  <div class="admin-top">
     <h2>Admin Paneli</h2>
   </div>
 
-  <!-- Navbar -->
-  <div class="navbar">
+  <!-- NAVBAR -->
+  <div class="admin-nav">
     <a href="dashboard.html">Dashboard</a>
     <a href="orders.html">Siparişler</a>
     <a href="manage.html">Ürün Yönetimi</a>
+    <a href="kullanıcılar.html">Kullanıcılar</a>
   </div>
 
-  <!-- Duyuru Ekle -->
-  <div class="card">
-    <div class="card-header">Duyuru Ekle</div>
-    <div class="card-body">
-      <textarea id="announcement" rows="4" placeholder="Yeni duyuruyu buraya yaz..."></textarea>
-      <button onclick="addAnnouncement()" style="margin-top:15px;">Duyuruyu Kaydet</button>
-      <div id="annList" style="margin-top:20px;"></div>
+  <!-- DUYURU EKLE -->
+  <div class="card-custom">
+    <div class="card-custom-header">Duyuru Ekle</div>
+    <div class="card-custom-body">
+      <textarea id="announcement" rows="4" placeholder="Yeni duyuru metnini yazın..."></textarea>
+      <button onclick="addAnnouncement()">Duyuruyu Kaydet</button>
+      <div id="annList" style="margin-top: 18px;"></div>
     </div>
   </div>
 
-  <!-- Mesajlar -->
-  <div class="card">
-    <div class="card-header">Gelen Mesajlar</div>
-    <div class="card-body">
+  <!-- MESAJLAR -->
+  <div class="card-custom">
+    <div class="card-custom-header">Gelen Mesajlar</div>
+    <div class="card-custom-body">
       <div id="messages"></div>
     </div>
   </div>
@@ -179,59 +198,54 @@
   <button class="logout" onclick="logout()">Çıkış Yap</button>
 
   <script>
-    // Giriş kontrolü
     if (localStorage.getItem("adminLogged") !== "true") {
       window.location.href = "admin-login.html";
     }
 
-    // Duyuru ekleme
     function addAnnouncement() {
-      let a = document.getElementById("announcement").value;
-      if (!a) return alert("Boş duyuru kaydedilemez.");
+      let text = document.getElementById("announcement").value;
+      if (!text) return alert("Boş duyuru eklenemez.");
 
       let list = JSON.parse(localStorage.getItem("announcements") || "[]");
-      list.push(a);
+      list.push(text);
       localStorage.setItem("announcements", JSON.stringify(list));
 
       document.getElementById("announcement").value = "";
       loadAnnouncements();
     }
 
-    // Duyuruları listele
     function loadAnnouncements() {
       let list = JSON.parse(localStorage.getItem("announcements") || "[]");
       let area = document.getElementById("annList");
 
       if (list.length === 0) {
-        area.innerHTML = "<p style='text-align:center; color:#777;'>Henüz duyuru yok.</p>";
+        area.innerHTML = "<p style='text-align:center; color:#666;'>Henüz duyuru yok.</p>";
         return;
       }
 
       area.innerHTML = "";
-      list.slice().reverse().forEach((d, i) => {
+      list.slice().reverse().forEach((t, i) => {
         area.innerHTML += `
           <div class="announcement-item">
-            <span>${d}</span>
+            <span>${t}</span>
             <button class="delete-btn" onclick="deleteAnnouncement(${i})">🗑</button>
-          </div>
-        `;
+          </div>`;
       });
     }
 
-    function deleteAnnouncement(index) {
+    function deleteAnnouncement(i) {
       let list = JSON.parse(localStorage.getItem("announcements") || "[]");
-      list.splice(index, 1);
+      list.splice(i, 1);
       localStorage.setItem("announcements", JSON.stringify(list));
       loadAnnouncements();
     }
 
-    // Mesajları göster
     function loadMessages() {
       let msgs = JSON.parse(localStorage.getItem("messages") || "[]");
       let html = "";
 
       if (msgs.length === 0) {
-        html = "<p style='text-align:center; color:#777;'>Henüz mesaj yok.</p>";
+        html = "<p style='text-align:center; color:#666;'>Henüz mesaj yok.</p>";
       }
 
       msgs.forEach(m => {
@@ -241,7 +255,6 @@
       document.getElementById("messages").innerHTML = html;
     }
 
-    // Çıkış
     function logout() {
       localStorage.removeItem("adminLogged");
       window.location.href = "admin-login.html";
