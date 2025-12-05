@@ -1,267 +1,441 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Admin Paneli — WellPhoria</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WellPhoria — Admin Panel</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
   <style>
-    :root {
-      --wp-green: #3bb77e;
-      --wp-darkgreen: #2e9c69;
-      --wp-lightbg: #f3f6f8;
-      --wp-cardbg: #ffffff;
-      --wp-border: #d7e9dd;
+    /* -------------------------
+       GLOBAL
+    ------------------------- */
+    :root{
+      --sidebar-bg:#0f1724;
+      --accent:#1f6feb;
+      --accent-2:#0ea5a4;
+      --card:#ffffff;
+      --muted:#94a3b8;
+      --radius:12px;
+      --shadow:0 8px 30px rgba(16,24,40,0.08);
+      --page-bg:#f4f7fb;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:var(--page-bg);
+      color:#0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    a{color:inherit;text-decoration:none}
+
+    /* -------------------------
+       LAYOUT
+    ------------------------- */
+    .app{
+      display:flex;
+      min-height:100vh;
+      width:100%;
     }
 
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--wp-lightbg);
-      margin: 0;
-      padding: 30px;
-      color: #333;
+    /* SIDEBAR */
+    .sidebar{
+      width:260px;
+      background:var(--sidebar-bg);
+      color:#e6eef8;
+      padding:24px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      position:fixed;
+      left:0;top:0;bottom:0;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+    }
+    .brand .logo{
+      width:44px;height:44px;border-radius:10px;
+      display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#60a5fa);
+      font-weight:800;color:white;font-size:20px;
+    }
+    .brand .title{font-size:18px;font-weight:700}
+    .menu{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+    .menu a{
+      display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;color:var(--muted);
+      transition:all .18s;
+    }
+    .menu a i{font-size:18px; width:22px; text-align:center}
+    .menu a:hover{background:rgba(255,255,255,0.04);color:#fff}
+    .menu a.active{background:linear-gradient(90deg,#153f7a,#1f6feb);color:#fff}
+    .sidebar .footer{margin-top:auto;font-size:13px;color:var(--muted)}
+    .logout-btn{
+      background:#ef4444;padding:10px;border-radius:10px;color:white;display:flex;align-items:center;gap:8px;cursor:pointer;
+    }
+    .logout-btn:hover{opacity:.95}
+
+    /* MAIN */
+    .main{
+      margin-left:260px;
+      padding:28px;
+      width:calc(100% - 260px);
+      transition:all .2s;
     }
 
-    /* TOP BAR */
-    .admin-top {
-      background: var(--wp-cardbg);
-      border-left: 6px solid var(--wp-green);
-      padding: 18px 20px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    /* TOPBAR - SEARCH & BELL REMOVED */
+    .topbar{
+      background:var(--card);
+      padding:16px 20px;
+      border-radius:12px;
+      box-shadow:var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:22px;
+    }
+    .topbar .left{display:flex;align-items:center;gap:18px}
+    .topbar .title{font-size:20px;color:var(--accent);font-weight:700}
+    .topbar-right{display:flex;align-items:center;gap:12px}
+    .icon-btn{background:#fff;padding:8px;border-radius:10px;box-shadow:0 2px 6px rgba(2,6,23,0.06);cursor:pointer}
+    .icon-btn i{font-size:18px;color:var(--muted)}
+
+    /* DASH GRID */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:18px;
+      align-items:start;
     }
 
-    .admin-top h2 {
-      margin: 0;
-      font-size: 26px;
-      color: var(--wp-green);
-      font-weight: 700;
-    }
-
-    /* NAVBAR */
-    .admin-nav {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-    }
-
-    .admin-nav a {
-      padding: 10px 22px;
-      background: var(--wp-green);
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 700;
-      transition: 0.2s;
-    }
-
-    .admin-nav a:hover {
-      background: var(--wp-darkgreen);
-    }
+    .col-4{grid-column:span 4}
+    .col-6{grid-column:span 6}
+    .col-8{grid-column:span 8}
+    .col-12{grid-column:span 12}
 
     /* CARD */
-    .card-custom {
-      background: var(--wp-cardbg);
-      border-radius: 12px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
-      border: 1px solid var(--wp-border);
-      overflow: hidden;
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      border:1px solid #eef2f7;
     }
+    .card h3{margin:0 0 12px;font-size:16px;color:var(--accent);font-weight:700}
 
-    .card-custom-header {
-      background: #e8f5ee;
-      padding: 15px 20px;
-      border-bottom: 1px solid var(--wp-border);
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--wp-green);
-    }
+    /* CHART CANVAS */
+    canvas{display:block;max-width:100%;height:260px !important}
 
-    .card-custom-body {
-      padding: 20px;
-    }
+    /* ANNOUNCEMENT FORM */
+    .form-row{display:flex;gap:12px;flex-wrap:wrap}
+    .input,textarea,input[type=text]{width:100%;padding:10px;border-radius:10px;border:1px solid #e6eef8}
+    textarea{min-height:110px;resize:vertical}
+    .btn{background:var(--accent);color:white;padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+    .btn.secondary{background:#64748b;color:white}
 
-    textarea, input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      background: #f9fcfa;
-      border: 1px solid var(--wp-border);
-      transition: 0.2s;
-      font-size: 15px;
-    }
-
-    textarea:focus, input:focus {
-      border-color: var(--wp-green);
-      box-shadow: 0 0 6px rgba(59, 183, 126, 0.35);
-      background: #ffffff;
-    }
-
-    button {
-      padding: 12px 18px;
-      background: var(--wp-green);
-      color: #ffffff;
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-      margin-top: 10px;
-    }
-
-    button:hover {
-      background: var(--wp-darkgreen);
-    }
-
-    /* LOGOUT */
-    .logout {
-      background: #ff4f4f;
-      margin-top: 20px;
-    }
-
-    .logout:hover {
-      background: #d93c3c;
-    }
-
-    /* ITEMS */
-    .announcement-item,
-    .message-item {
-      padding: 12px;
-      background: #f5faf7;
-      border-left: 5px solid var(--wp-green);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      font-size: 15px;
-      border: 1px solid var(--wp-border);
-    }
-
-    .delete-btn {
-      background: none;
-      border: none;
-      font-size: 18px;
-      color: #cc0000;
-      cursor: pointer;
-      padding: 5px;
-    }
-
-    .delete-btn:hover {
-      color: red;
+    /* responsive */
+    @media (max-width:1000px){
+      .col-4{grid-column:span 12}
+      .col-6{grid-column:span 12}
+      .col-8{grid-column:span 12}
+      .col-12{grid-column:span 12}
+      .sidebar{position:fixed;left:-100%;transition:left .18s}
+      .sidebar.open{left:0}
+      .main{margin-left:0;width:100%}
     }
   </style>
 </head>
-
 <body>
 
-  <div class="admin-top">
-    <h2>Admin Paneli</h2>
-  </div>
+  <div class="app">
 
-  <!-- NAVBAR -->
-  <div class="admin-nav">
-    <a href="dashboard.html">Dashboard</a>
-    <a href="orders.html">Siparişler</a>
-    <a href="manage.html">Ürün Yönetimi</a>
-    <a href="kullanıcılar.html">Kullanıcılar</a>
-  </div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="logo">W</div>
+        <div class="title">WellPhoria</div>
+      </div>
 
-  <!-- DUYURU EKLE -->
-  <div class="card-custom">
-    <div class="card-custom-header">Duyuru Ekle</div>
-    <div class="card-custom-body">
-      <textarea id="announcement" rows="4" placeholder="Yeni duyuru metnini yazın..."></textarea>
-      <button onclick="addAnnouncement()">Duyuruyu Kaydet</button>
-      <div id="annList" style="margin-top: 18px;"></div>
-    </div>
-  </div>
+      <nav class="menu" aria-label="Main">
+        <a href="admin-panel.html" class="active"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+        <a href="manage.html"><i class="bi bi-box"></i><span>Ürün Yönetimi</span></a>
+        <a href="kullanıcılar.html"><i class="bi bi-people"></i><span>Kullanıcılar</span></a>
+        <a href="orders.html"><i class="bi bi-cart-check"></i><span>Siparişler</span></a>
+         <a href="admin-login.html"><i class="bi bi-archive"></i><span>Çıkış</span></a> 
+        <!-- Duyurular ve Mesajlar linkleri kaldırıldı isteğe göre -->
+      </nav>
 
-  <!-- MESAJLAR -->
-  <div class="card-custom">
-    <div class="card-custom-header">Gelen Mesajlar</div>
-    <div class="card-custom-body">
-      <div id="messages"></div>
-    </div>
-  </div>
+      <div class="sidebar-footer">
+        <div style="font-size:13px;color:var(--muted)">Logged in as <strong>Admin</strong></div>
+        <div style="height:12px"></div>
 
-  <button class="logout" onclick="logout()">Çıkış Yap</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main" id="main">
+
+      <!-- TOPBAR (arama ve bildirimler kaldırıldı) -->
+      <div class="topbar">
+        <div class="left">
+          <div class="title">Admin Paneli</div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Arama ve bell kaldırıldı per isteğin -->
+          <div class="icon-btn" id="mobileToggler"><i class="bi bi-list"></i></div>
+        </div>
+      </div>
+
+      <!-- GRID -->
+      <section class="grid" aria-label="Analytics">
+
+        <!-- Sales (col 8) -->
+        <div class="col-8">
+          <div class="card">
+            <h3>Ürün Satış Grafiği</h3>
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Happiness (col 4) -->
+        <div class="col-4">
+          <div class="card">
+            <h3>Aylık Mutluluk Oranı</h3>
+            <canvas id="happinessChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Category (col 4) -->
+        <div class="col-4">
+          <div class="card">
+            <h3>Kategori Dağılımı</h3>
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Announcement Form (col 8) - kept as requested -->
+        <div class="col-8">
+          <div class="card">
+            <h3>Duyuru Ekle</h3>
+            <div class="form-row">
+              <div style="flex:1">
+                <input id="annTitle" class="input" type="text" placeholder="Başlık ">
+              </div>
+            </div>
+            <div style="height:12px"></div>
+            <textarea id="annText" class="input" placeholder="Duyuru metni..."></textarea>
+            <!-- Duyuru Resmi -->
+            <div style="margin-top:12px">
+              <label style="font-weight:600;color:var(--muted);font-size:14px">Resim Seç</label>
+              <input id="annImage" type="file" accept="image/*" style="margin-top:6px">
+            </div>
+            <!-- PDF Dosyası -->
+            <div style="margin-top:12px">
+              <label style="font-weight:600;color:var(--muted);font-size:14px">PDF Ekle (opsiyonel)</label>
+              <input id="annPdf" type="file" accept="application/pdf" style="margin-top:6px">
+            </div>
+
+
+            <div style="display:flex;gap:10px;margin-top:12px">
+              <button id="saveAnn" class="btn">Kaydet</button>
+              <button id="clearAll" class="btn secondary">Tümünü Temizle</button>
+            </div>
+            <div style="margin-top:10px;color:var(--muted);font-size:13px"></div>
+          </div>
+        </div>
+
+        <!-- Removed: Announcements list card (son duyurular) -->
+        <!-- Removed: Messages card (gelen mesajlar) -->
+
+        <!-- Simple stats (col 6) -->
+        <div class="col-6">
+          <div class="card">
+            <h3>Hızlı İstatistikler</h3>
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <div style="flex:1;min-width:120px;background:#f8fafc;padding:12px;border-radius:10px">
+                <div style="font-size:20px;font-weight:700">1,240</div>
+                <div style="color:var(--muted)">Toplam Satış</div>
+              </div>
+              <div style="flex:1;min-width:120px;background:#f8fafc;padding:12px;border-radius:10px">
+                <div style="font-size:20px;font-weight:700">8.9</div>
+                <div style="color:var(--muted)">Mutluluk Skoru</div>
+              </div>
+              <div style="flex:1;min-width:120px;background:#f8fafc;padding:12px;border-radius:10px">
+                <div style="font-size:20px;font-weight:700">320</div>
+                <div style="color:var(--muted)">Aktif Kullanıcı</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
 
   <script>
-    if (localStorage.getItem("adminLogged") !== "true") {
-      window.location.href = "admin-login.html";
+    /******************************
+      Helper / Init
+    ******************************/
+   function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = e => reject(e);
+    reader.readAsDataURL(file);
+  });
+ }
+
+    const sidebar = document.getElementById('sidebar');
+    const mobileToggler = document.getElementById('mobileToggler');
+    mobileToggler && mobileToggler.addEventListener('click', ()=> sidebar.classList.toggle('open'));
+    
+
+    /* Storage key for announcements (kept) */
+    const ANN_KEY = 'wp_announcements_v1';
+
+    /* Utilities */
+    function readStorage(key, def = []) {
+      try {
+        return JSON.parse(localStorage.getItem(key) || 'null') || def;
+      } catch(e) { return def; }
+    }
+    function writeStorage(key, val){
+      localStorage.setItem(key, JSON.stringify(val));
     }
 
-    function addAnnouncement() {
-      let text = document.getElementById("announcement").value;
-      if (!text) return alert("Boş duyuru eklenemez.");
+    /******************************
+       ANNOUNCEMENTS (only save / clear)
+       (list card removed per request)
+    ******************************/
+    const annTitle = document.getElementById('annTitle');
+    const annText = document.getElementById('annText');
+    const saveAnnBtn = document.getElementById('saveAnn');
+    const clearAllBtn = document.getElementById('clearAll');
 
-      let list = JSON.parse(localStorage.getItem("announcements") || "[]");
-      list.push(text);
-      localStorage.setItem("announcements", JSON.stringify(list));
+    saveAnnBtn.addEventListener('click', async ()=>{
+  const title = annTitle.value.trim();
+  const text = annText.value.trim();
+  const imgFile = document.getElementById('annImage').files[0];
+  const pdfFile = document.getElementById('annPdf').files[0];
 
-      document.getElementById("announcement").value = "";
-      loadAnnouncements();
-    }
+  if(!text){
+    alert('Duyuru metni gerekli.');
+    return;
+  }
 
-    function loadAnnouncements() {
-      let list = JSON.parse(localStorage.getItem("announcements") || "[]");
-      let area = document.getElementById("annList");
+  let base64Image = null;
+  if(imgFile){
+    base64Image = await fileToBase64(imgFile);
+  }
 
-      if (list.length === 0) {
-        area.innerHTML = "<p style='text-align:center; color:#666;'>Henüz duyuru yok.</p>";
-        return;
-      }
+  let base64Pdf = null;
+  if(pdfFile){
+    base64Pdf = await fileToBase64(pdfFile);
+  }
 
-      area.innerHTML = "";
-      list.slice().reverse().forEach((t, i) => {
-        area.innerHTML += `
-          <div class="announcement-item">
-            <span>${t}</span>
-            <button class="delete-btn" onclick="deleteAnnouncement(${i})">🗑</button>
-          </div>`;
+  const arr = readStorage(ANN_KEY, []);
+  arr.push({
+    title: title || '',
+    text,
+    image: base64Image,
+    pdf: base64Pdf,        // ← PDF BURADA KAYDEDİLİYOR
+    created: Date.now()
+  });
+
+  writeStorage(ANN_KEY, arr);
+  annTitle.value = '';
+  annText.value = '';
+  document.getElementById('annImage').value = '';
+  document.getElementById('annPdf').value = '';
+
+  alert('Duyuru kaydedildi (resim ve PDF dahil).');
+});
+
+
+
+    clearAllBtn.addEventListener('click', ()=>{
+      if(!confirm('Tüm duyuruları silmek istediğinize emin misiniz?')) return;
+      writeStorage(ANN_KEY, []);
+      alert('Tüm duyurular silindi.');
+    });
+
+    /******************************
+       CHARTS
+    ******************************/
+    function initCharts(){
+      // sales
+      const salesCtx = document.getElementById('salesChart').getContext('2d');
+      new Chart(salesCtx, {
+        type:'bar',
+        data:{
+          labels:['Ocak','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'],
+          datasets:[{
+            label:'Satış (adet)',
+            data:[120,150,180,220,260,300,280,310,330,360,390,420],
+            backgroundColor: 'rgba(31,111,235,0.12)',
+            borderColor:'#1f6feb',
+            borderWidth:2,
+            borderRadius:8
+          }]
+        },
+        options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
+      });
+
+      // happiness
+      const happinessCtx = document.getElementById('happinessChart').getContext('2d');
+      new Chart(happinessCtx, {
+        type:'line',
+        data:{
+          labels:['Ocak','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'],
+          datasets:[{
+            label:'Mutluluk (%)',
+            data:[68,70,72,74,76,79,80,82,83,85,86,88],
+            borderColor:'#0ea5a4',
+            backgroundColor:'rgba(14,165,164,0.08)',
+            tension:0.35,
+            fill:true,
+            pointRadius:3,
+            borderWidth:3
+          }]
+        },
+        options:{responsive:true,plugins:{legend:{display:false}}}
+      });
+
+      // category
+      const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+      new Chart(categoryCtx, {
+        type:'doughnut',
+        data:{
+          labels:['Vitaminler','Takviyeler','Cilt','Fitness'],
+          datasets:[{data:[35,25,20,20], backgroundColor:['#1f6feb','#0ea5a4','#60a5fa','#34d399'] }]
+        },
+        options:{responsive:true,plugins:{legend:{position:'bottom'}}}
       });
     }
 
-    function deleteAnnouncement(i) {
-      let list = JSON.parse(localStorage.getItem("announcements") || "[]");
-      list.splice(i, 1);
-      localStorage.setItem("announcements", JSON.stringify(list));
-      loadAnnouncements();
+    /******************************
+       BOOTSTRAP / INITIALIZATION
+    ******************************/
+    function boot(){
+      initCharts();
+      // note: announcement list & messages cards removed per request.
     }
 
-    function loadMessages() {
-      let msgs = JSON.parse(localStorage.getItem("messages") || "[]");
-      let html = "";
+    document.addEventListener('DOMContentLoaded', boot);
 
-      if (msgs.length === 0) {
-        html = "<p style='text-align:center; color:#666;'>Henüz mesaj yok.</p>";
-      }
-
-      msgs.forEach(m => {
-        html += `<div class="message-item">${m}</div>`;
-      });
-
-      document.getElementById("messages").innerHTML = html;
-    }
-
-    function logout() {
-      localStorage.removeItem("adminLogged");
-      window.location.href = "admin-login.html";
-    }
-
-    loadAnnouncements();
-    loadMessages();
+    /******************************
+       expose for dev
+    ******************************/
+    window._wp = { readStorage, writeStorage };
   </script>
 
 </body>

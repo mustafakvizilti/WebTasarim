@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Duyurular — WellPhoria</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body class="bg-light">
+
+<div class="container py-5">
+  <h2 class="text-center mb-4">Tüm Duyurular</h2>
+
+  <div id="allAnnouncements" class="row"></div>
+
+  <div class="text-center mt-5">
+    <a href="index.html" class="btn btn-primary">Ana Sayfaya Dön</a>
+  </div>
+</div>
+
+<script>
+const ANN_KEY = "wp_announcements_v1";
+
+// LocalStorage okuma fonksiyonu
+function readStorage(k, d = []) {
+  try { return JSON.parse(localStorage.getItem(k)) || d; }
+  catch { return d; }
+}
+
+// Duyuruları yükleme ve tarihe göre sıralama
+function loadAllAnnouncements() {
+  const arr = readStorage(ANN_KEY, []);
+  const area = document.getElementById("allAnnouncements");
+
+  if (arr.length === 0) {
+    area.innerHTML = `
+      <div class="col-12 text-center text-muted">Hiç duyuru bulunamadı.</div>
+    `;
+    return;
+  }
+
+  // 🔹 Tarihe göre azalan sırala (en yeni üstte)
+  arr.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+  area.innerHTML = "";
+
+  arr.forEach(a => {
+    area.innerHTML += `
+      <div class="col-md-6 mb-4">
+        <div class="bg-white p-4" 
+             style="border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); cursor:pointer;">
+          
+          ${a.image ? `<img src="${a.image}" class="img-fluid mb-3" style="border-radius:10px;">` : ""}
+
+          <h4 class="text-primary">${a.title}</h4>
+          <p>${a.text}</p>
+
+          ${a.pdf ? `
+            <a href="${a.pdf}" target="_blank" 
+               class="btn btn-danger btn-sm mb-2">PDF Dosyasını Aç</a>
+          ` : ""}
+
+          <div class="text-muted" style="font-size:13px;">
+            ${new Date(a.created).toLocaleDateString("tr-TR")}
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", loadAllAnnouncements);
+</script>
+
+</body>
+</html>

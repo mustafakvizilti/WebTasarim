@@ -22,48 +22,99 @@
 <body>
   <div class="site-wrap">
 
-    <div class="site-navbar py-2">
-      <div class="search-wrap">
-        <div class="container">
-          <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-          <form action="#" method="post">
-            <input type="text" class="form-control" placeholder="Aramak istediğiniz kelimeyi yazın ve Enter'a basın...">
-          </form>
+    <style>
+/* Dropdown kapsayıcı */
+.site-menu li.dropdown {
+  position: relative;
+}
+
+/* Dropdown içeriği gizli olacak */
+.site-menu li.dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+}
+
+/* Dropdown linkleri */
+.site-menu li.dropdown .dropdown-content li a {
+  color: black;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Hover ile göster */
+.site-menu li.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Hover efekti */
+.site-menu li.dropdown .dropdown-content li a:hover {
+  background-color: #ddd;
+}
+</style>
+
+<div class="site-navbar py-2">
+  <div class="search-wrap">
+    <div class="container">
+      <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+      <form action="#" method="post">
+        <input type="text" class="form-control" placeholder="Aramak istediğiniz kelimeyi yazın ve Enter'a basın...">
+      </form>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="logo">
+        <div class="site-logo">
+          <a href="index.html" class="js-logo-clone"><strong class="text-primary">Well</strong>Phoria</a>
         </div>
       </div>
+      <div class="main-nav d-none d-lg-block">
+        <nav class="site-navigation text-right text-md-center" role="navigation">
+          <ul class="site-menu js-clone-nav d-none d-lg-block">
+            <li class="active"><a href="index.html">Ana Sayfa</a></li>
 
-      <div class="container">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="logo">
-            <div class="site-logo">
-              <a href="index.html" class="js-logo-clone"><strong class="text-primary">Well</strong>Phoria</a>
-            </div>
-          </div>
-          <div class="main-nav d-none d-lg-block">
-            <nav class="site-navigation text-right text-md-center" role="navigation">
-              <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li class="active"><a href="index.html">Ana Sayfa</a></li>
-                <li><a href="shop.html">Mağaza</a></li>
-                <li><a href="about.html">Hakkımızda</a></li>
-                <li><a href="contact.html">İletişim</a></li>
-                <li><a href="admin-login.html" style="color: red;"><strong>Admin</strong></a></li>
-                <div id="userArea" class="d-inline-block ml-3"></div>
-
+            <!-- Mağaza Dropdown Başlangıç -->
+            <li class="dropdown">
+              <a href="shop.html" class="dropbtn">Mağaza</a>
+              <ul class="dropdown-content">
+                <li><a href="receteli.html">Reçeteli Ürünler</a></li>
+                <li><a href="recetesiz.html">Reçetesiz Ürünler</a></li>
+                <li><a href="basagrisi.html">Ağrı Kesiciler</a></li>
               </ul>
-            </nav>
-          </div>
-          <div class="icons">
-            <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-            <a href="cart.html" class="icons-btn d-inline-block bag">
-              <span class="icon-shopping-bag"></span>
-              <span class="number">2</span>
-            </a>
-            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
-                class="icon-menu"></span></a>
-          </div>
-        </div>
+            </li>
+            <!-- Mağaza Dropdown Bitiş -->
+
+            <li><a href="about.html">Hakkımızda</a></li>
+            <li><a href="contact.html">İletişim</a></li>
+            <li><a href="admin-login.html" style="color: red;"><strong>Admin</strong></a></li>
+            <div id="userArea" class="d-inline-block ml-3"></div>
+          </ul>
+        </nav>
+      </div>
+      <div class="icons">
+        <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+        <a href="cart.html" class="icons-btn d-inline-block bag">
+          <span class="icon-shopping-bag"></span>
+          <span class="number">2</span>
+        </a>
+        <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+            class="icon-menu"></span></a>
       </div>
     </div>
+  </div>
+</div>
+
 
     <div class="owl-carousel owl-single px-0">
       <div class="site-blocks-cover overlay" style="background-image: url('images/hero_bg.jpg');">
@@ -104,20 +155,32 @@
     </div>
 
     <!-- DUYURULAR -->
-    <div class="site-section bg-light py-5">
-      <div class="container">
-        <div class="row mb-4">
-          <div class="col-12 text-center">
-            <h2><strong class="text-primary">Duyurular</strong></h2>
-          </div>
-        </div>
-        <div id="announcementsArea" class="row justify-content-center">
-          <div class="col-lg-8">
-            <ul id="announcementList" class="list-group" style="font-size: 18px;"></ul>
-          </div>
-        </div>
+    <!-- DUYURULAR (LocalStorage'dan çekilecek) -->
+  <div class="site-section bg-light" style="padding:60px 0">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <h2 class="text-black h5">Duyurular</h2>
       </div>
     </div>
+
+    <div id="announcementsArea" class="row justify-content-center"></div>
+
+    <!-- ➕ SAĞ ALTA EKLENEN DAHA FAZLA BUTONU -->
+    <div class="row mt-4">
+      <div class="col-12 text-right">
+        <a href="duyurular.html" 
+           class="btn btn-outline-primary"
+           style="border-radius:8px; padding:8px 18px;">
+          Daha Fazla &raquo;
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 
    <div class="site-section py-5">
   <div class="container">
@@ -250,28 +313,47 @@
 
   <!-- DUYURULAR JS -->
   <script>
-    function loadAnnouncements() {
-      let list = JSON.parse(localStorage.getItem("announcements") || "[]");
-      let area = document.getElementById("announcementList");
+function loadAnnouncements() {
 
-      if (list.length === 0) {
-        area.innerHTML = "<li class='list-group-item text-center'>Henüz duyuru yok.</li>";
-        return;
-      }
+  let list = JSON.parse(localStorage.getItem("announcements") || "[]");
+  let area = document.getElementById("announcementList");
 
-      area.innerHTML = "";
-      list.slice().reverse().forEach(a => {
-        area.innerHTML += `
-          <li class="list-group-item" 
-              style="background:#ffffff; border-left:5px solid #0059ff; margin-bottom:10px;">
-            ${a}
-          </li>
-        `;
-      });
+  if (list.length === 0) {
+    area.innerHTML = `
+      <li class="list-group-item text-center">Henüz duyuru yok.</li>
+    `;
+    return;
+  }
+
+  area.innerHTML = "";
+
+  list.slice().reverse().forEach(a => {
+
+    let imgHTML = "";
+    if (a.image) {
+      imgHTML = `
+        <img src="${a.image}" 
+             style="width:100%; border-radius:10px; margin:10px 0;">
+      `;
     }
 
-    loadAnnouncements();
-  </script>
+    area.innerHTML += `
+      <li class="list-group-item" 
+          style="background:#fff; border-left:5px solid #0059ff; margin-bottom:15px;">
+
+        <h5 style="margin:0; font-weight:700;">${a.title || "Duyuru"}</h5>
+        <p style="margin-top:6px; font-size:16px;">${a.text}</p>
+
+        ${imgHTML}
+      </li>
+    `;
+  });
+}
+
+loadAnnouncements();
+
+</script>
+
   <script>
 // Giriş yapan kullanıcıyı yükle
 function loadUser() {
@@ -301,6 +383,129 @@ function logout() {
 }
 
 loadUser();
+</script>
+
+<script>
+  const ANN_KEY = "wp_announcements_v1";
+
+  function readStorage(key, def = []) {
+    try {
+      return JSON.parse(localStorage.getItem(key) || "null") || def;
+    } catch {
+      return def;
+    }
+  }
+
+  function renderAnnouncements() {
+  const area = document.getElementById("announcementsArea");
+  const arr = readStorage(ANN_KEY, []);
+
+  if (arr.length === 0) {
+    area.innerHTML = `
+      <div class="col-12 text-center text-muted">
+        Henüz duyuru eklenmemiş.
+      </div>
+    `;
+    return;
+  }
+
+  // 🔹 Tarihe göre azalan sırala (en yeni üstte)
+  arr.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+  area.innerHTML = "";
+
+  arr.forEach(a => {
+    const card = document.createElement("div");
+    card.className = "col-md-6 mb-4";
+
+    card.innerHTML = `
+      <div class="p-4 bg-white announcement-card" 
+          data-ann='${JSON.stringify(a).replace(/'/g, "&apos;")}'
+          style="cursor:pointer; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08)">
+          
+        ${a.image ? `<img src="${a.image}" class="img-fluid mb-3" style="border-radius:10px">` : ""}
+        <h5 class="text-primary">${a.title || "Duyuru"}</h5>
+        <p>${a.text}</p>
+
+        ${a.pdf ? `<button class="btn btn-danger btn-sm mt-2" onclick="window.open('${a.pdf}','_blank')">PDF Aç</button>` : ""}
+
+        <div class="text-muted" style="font-size:13px">
+          ${new Date(a.created).toLocaleDateString("tr-TR")}
+        </div>
+      </div>
+    `;
+
+    area.appendChild(card);
+  });
+
+  // 🔹 Pop-up için event ekleyelim
+  document.querySelectorAll(".announcement-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const ann = JSON.parse(card.dataset.ann);
+      alert(`${ann.title}\n\n${ann.text}\n\nTarih: ${new Date(ann.created).toLocaleDateString("tr-TR")}`);
+    });
+  });
+}
+
+
+
+  document.addEventListener("DOMContentLoaded", renderAnnouncements);
+  
+</script>
+  <!-- DUYURU POPUP -->
+<div id="announcementModal" 
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,0.6); backdrop-filter:blur(3px);
+            align-items:center; justify-content:center; z-index:9999;">
+  
+  <div id="modalContent" 
+       style="width:90%; max-width:450px; background:white; padding:20px;
+              border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.2);
+              animation:pop .25s ease;">
+  </div>
+</div>
+
+<style>
+@keyframes pop {
+  0% { transform:scale(.7); opacity:0; }
+  100% { transform:scale(1); opacity:1; }
+}
+</style>
+<script>
+document.addEventListener("click", function (e) {
+  const card = e.target.closest(".announcement-card");
+  if (!card) return;
+
+  let data = JSON.parse(card.getAttribute("data-ann"));
+  openAnnouncementModal(data);
+});
+
+function openAnnouncementModal(a) {
+  let modal = document.getElementById("announcementModal");
+  let content = document.getElementById("modalContent");
+
+  content.innerHTML = `
+    <h4 class="text-primary">${a.title}</h4>
+    <p>${a.text}</p>
+
+    ${a.image ? `<img src="${a.image}" class="img-fluid mb-3" style="border-radius:10px;">` : ""}
+
+    ${a.pdf ? `<a href="${a.pdf}" target="_blank" class="btn btn-danger btn-block mb-2">PDF Aç</a>` : ""}
+
+    <button onclick="closeAnnouncementModal()" class="btn btn-secondary btn-block">Kapat</button>
+  `;
+
+  modal.style.display = "flex";
+}
+
+function closeAnnouncementModal() {
+  document.getElementById("announcementModal").style.display = "none";
+}
+
+// Modal arka plana tıklayınca kapanır
+document.getElementById("announcementModal").addEventListener("click", function (e) {
+  if (e.target === this) closeAnnouncementModal();
+});
 </script>
 
 

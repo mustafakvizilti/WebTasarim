@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Duyuru Ekle — Panel</title>
+
+    <style>
+        :root {
+            --blue: #1f3b73;
+            --blue-light: #2a4c93;
+            --blue-dark: #152a57;
+            --bg: #0f1a33;
+            --card: #1a2747;
+            --border: #30406a;
+            --text: #e6ecff;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 30px;
+            color: var(--text);
+        }
+
+        /* TOP */
+        .admin-top {
+            background: var(--card);
+            border-left: 6px solid var(--blue);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.45);
+        }
+
+        .admin-top h2 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        /* NAVBAR */
+        .admin-nav {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .admin-nav a {
+            padding: 10px 20px;
+            background: var(--blue);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.25s;
+        }
+
+        .admin-nav a:hover {
+            background: var(--blue-light);
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 650px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.45);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #112040;
+            color: white;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            border: none;
+            background: var(--blue);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.25s;
+        }
+
+        button:hover {
+            background: var(--blue-light);
+        }
+
+        .preview-img {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-top"><h2>Duyuru Ekle</h2></div>
+
+    <div class="admin-nav">
+        <a href="index.html">Dashboard</a>
+        <a href="duyurular.html">Tüm Duyurular</a>
+    </div>
+
+    <div class="card">
+        <input id="title" type="text" placeholder="Duyuru Başlığı">
+        <textarea id="text" rows="4" placeholder="Duyuru Açıklaması"></textarea>
+
+        <label>Resim Ekle:</label>
+        <input type="file" id="imgInput" accept="image/*">
+
+        <img id="preview" class="preview-img">
+
+        <button onclick="save()">Duyuruyu Kaydet</button>
+    </div>
+
+    <script>
+        let base64Image = "";
+
+        document.getElementById("imgInput").addEventListener("change", function(){
+            const f = this.files[0];
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                base64Image = reader.result;
+                document.getElementById("preview").src = base64Image;
+                document.getElementById("preview").style.display = "block";
+            };
+
+            reader.readAsDataURL(f);
+        });
+
+        function save() {
+            const t = document.getElementById("title").value.trim();
+            const tx = document.getElementById("text").value.trim();
+
+            if (!t || !tx || !base64Image) {
+                alert("Lütfen tüm alanları doldurun ve resim seçin.");
+                return;
+            }
+
+            let arr = JSON.parse(localStorage.getItem("announcements") || "[]");
+
+            arr.push({
+                title: t,
+                text: tx,
+                img: base64Image
+            });
+
+            localStorage.setItem("announcements", JSON.stringify(arr));
+
+            alert("Duyuru başarıyla eklendi!");
+            window.location.href = "duyurular.html";
+        }
+    </script>
+
+</body>
+</html>
