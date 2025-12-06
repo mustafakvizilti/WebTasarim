@@ -252,7 +252,69 @@
         </div>
       </div>
     </div>
+    <!-- -----------------------------
+     İSTATİSTİKLER
+------------------------------- -->
+<div class="site-section bg-light" style="padding:60px 0">
+  <div class="container">
+    <div class="row mb-5 justify-content-center">
+      <div class="col-12 text-center">
+        <h2 class="text-black h5">Site İstatistikleri</h2>
+      </div>
+    </div>
 
+    <div class="row justify-content-center" style="gap:20px">
+      <!-- Ürün Satış Grafiği -->
+      <div class="col-md-8">
+        <div class="card p-4">
+          <h3>Ürün Satış Grafiği</h3>
+          <canvas id="salesChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Aylık Mutluluk Oranı -->
+      <div class="col-md-4">
+        <div class="card p-4">
+          <h3>Aylık Mutluluk Oranı</h3>
+          <canvas id="happinessChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Kategori Dağılımı -->
+      <div class="col-md-4">
+        <div class="card p-4">
+          <h3>Kategori Dağılımı</h3>
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Hızlı İstatistikler -->
+      <div class="col-md-6">
+        <div class="card p-4">
+          <h3>Hızlı İstatistikler</h3>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+            <div style="flex:1; min-width:120px; background:#f8fafc; padding:12px; border-radius:10px">
+              <div style="font-size:20px; font-weight:700">1,240</div>
+              <div style="color:#94a3b8">Toplam Satış</div>
+            </div>
+            <div style="flex:1; min-width:120px; background:#f8fafc; padding:12px; border-radius:10px">
+              <div style="font-size:20px; font-weight:700">8.9</div>
+              <div style="color:#94a3b8">Mutluluk Skoru</div>
+            </div>
+            <div style="flex:1; min-width:120px; background:#f8fafc; padding:12px; border-radius:10px">
+              <div style="font-size:20px; font-weight:700">320</div>
+              <div style="color:#94a3b8">Aktif Kullanıcı</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+    
     <footer class="site-footer bg-light">
   <div class="container">
     <div class="row">
@@ -310,6 +372,61 @@
   <script src="js/jquery.magnific-popup.min.js"></script>
   <script src="js/aos.js"></script>
   <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function initCharts(){
+  // sales
+  const salesCtx = document.getElementById('salesChart').getContext('2d');
+  new Chart(salesCtx, {
+    type:'bar',
+    data:{
+      labels:['Ocak','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'],
+      datasets:[{
+        label:'Satış (adet)',
+        data:[120,150,180,220,260,300,280,310,330,360,390,420],
+        backgroundColor: 'rgba(31,111,235,0.12)',
+        borderColor:'#1f6feb',
+        borderWidth:2,
+        borderRadius:8
+      }]
+    },
+    options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
+  });
+
+  // happiness
+  const happinessCtx = document.getElementById('happinessChart').getContext('2d');
+  new Chart(happinessCtx, {
+    type:'line',
+    data:{
+      labels:['Ocak','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'],
+      datasets:[{
+        label:'Mutluluk (%)',
+        data:[68,70,72,74,76,79,80,82,83,85,86,88],
+        borderColor:'#0ea5a4',
+        backgroundColor:'rgba(14,165,164,0.08)',
+        tension:0.35,
+        fill:true,
+        pointRadius:3,
+        borderWidth:3
+      }]
+    },
+    options:{responsive:true,plugins:{legend:{display:false}}}
+  });
+
+  // category
+  const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+  new Chart(categoryCtx, {
+    type:'doughnut',
+    data:{
+      labels:['Vitaminler','Takviyeler','Cilt','Fitness'],
+      datasets:[{data:[35,25,20,20], backgroundColor:['#1f6feb','#0ea5a4','#60a5fa','#34d399']}]
+    },
+    options:{responsive:true,plugins:{legend:{position:'bottom'}}}
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initCharts);
+</script>
 
   <!-- DUYURULAR JS -->
   <script>

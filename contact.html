@@ -23,38 +23,101 @@
   <div class="site-wrap">
 
     <!-- Navbar -->
-    <div class="site-navbar py-2">
-      <div class="container">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="logo">
-            <div class="site-logo">
-              <a href="index.html" class="js-logo-clone"><strong class="text-primary">Well</strong>Phoria</a>
-            </div>
-          </div>
-          <div class="main-nav d-none d-lg-block">
-            <nav class="site-navigation text-right text-md-center" role="navigation">
-              <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li><a href="index.html">Ana Sayfa</a></li>
-                <li><a href="shop.html">Mağaza</a></li>
-                <li class="has-children">
-                  
-                </li>
-                <li><a href="about.html">Hakkımızda</a></li>
-                <li class="active"><a href="contact.html">İletişim</a></li>
-              </ul>
-            </nav>
-          </div>
-          <div class="icons">
-            <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-            <a href="cart.html" class="icons-btn d-inline-block bag">
-              <span class="icon-shopping-bag"></span>
-              <span class="number">2</span>
-            </a>
-            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
-          </div>
+    <style>
+/* Dropdown kapsayıcı */
+.site-menu li.dropdown {
+  position: relative;
+}
+
+/* Dropdown içeriği gizli olacak */
+.site-menu li.dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+}
+
+/* Dropdown linkleri */
+.site-menu li.dropdown .dropdown-content li a {
+  color: black;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Hover ile göster */
+.site-menu li.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Hover efekti */
+.site-menu li.dropdown .dropdown-content li a:hover {
+  background-color: #ddd;
+}
+</style>
+
+<div class="site-navbar py-2">
+  <div class="search-wrap">
+    <div class="container">
+      <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+      <form action="#" method="post">
+        <input type="text" class="form-control" placeholder="Aramak istediğiniz kelimeyi yazın ve Enter'a basın...">
+      </form>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="logo">
+        <div class="site-logo">
+          <a href="index.html" class="js-logo-clone"><strong class="text-primary">Well</strong>Phoria</a>
         </div>
       </div>
+      <div class="main-nav d-none d-lg-block">
+        <nav class="site-navigation text-right text-md-center" role="navigation">
+          <ul class="site-menu js-clone-nav d-none d-lg-block">
+            
+                <li><a href="index.html">   Ana Sayfa
+                </a></li>
+
+            <!-- Mağaza Dropdown Başlangıç -->
+            <li class="dropdown">
+              <a href="shop.html" class="dropbtn">Mağaza</a>
+              <ul class="dropdown-content">
+                <li><a href="receteli.html">Reçeteli Ürünler</a></li>
+                <li><a href="recetesiz.html">Reçetesiz Ürünler</a></li>
+                <li><a href="basagrisi.html">Ağrı Kesiciler</a></li>
+              </ul>
+            </li>
+            <!-- Mağaza Dropdown Bitiş -->
+
+            <li><a href="about.html">Hakkımızda</a></li>
+                <li class="active"><a href="contact.html">İletişim</a></li>
+            <li><a href="admin-login.html" style="color: red;"><strong>Admin</strong></a></li>
+            <div id="userArea" class="d-inline-block ml-3"></div>
+          </ul>
+        </nav>
+      </div>
+      <div class="icons">
+        <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+        <a href="cart.html" class="icons-btn d-inline-block bag">
+          <span class="icon-shopping-bag"></span>
+          <span class="number">2</span>
+        </a>
+        <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+            class="icon-menu"></span></a>
+      </div>
     </div>
+  </div>
+</div>
+
     <!-- Google Harita -->
 
 
