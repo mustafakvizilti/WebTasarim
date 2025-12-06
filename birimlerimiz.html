@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WellPhoria — Birimlerimiz</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/icomoon/style.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/owl.carousel.min.css">
+<link rel="stylesheet" href="css/owl.theme.default.min.css">
+<link rel="stylesheet" href="css/magnific-popup.css">
+<link rel="stylesheet" href="css/aos.css">
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+body{font-family:'Nunito',sans-serif;background:#f4f6f8}
+
+
+
+/* HERO */
+.site-blocks-cover{padding:160px 0;color:#fff;background-size:cover}
+
+/* UNIT CARD */
+.unit-card{
+background:linear-gradient(145deg,#fff,#eef1f5);
+padding:50px 30px;border-radius:20px;
+text-align:center;box-shadow:0 25px 45px rgba(0,0,0,.12);
+transition:.4s;position:relative;overflow:hidden
+}
+.unit-card:hover{transform:translateY(-14px)}
+.unit-icon{font-size:64px;color:#007bff}
+.counter{font-size:38px;font-weight:700;color:#007bff}
+
+/* POPUP */
+.white-popup{background:#fff;padding:40px;max-width:750px;margin:auto;border-radius:20px}
+.team-slider img{border-radius:15px;box-shadow:0 15px 30px rgba(0,0,0,.2)}
+
+/* FOOTER */
+.site-footer{
+background:#0f172a;
+color:#cbd5e1;
+padding:70px 0
+}
+.site-footer h5{color:#fff;margin-bottom:20px}
+.footer-link a{color:#cbd5e1;display:block;margin-bottom:8px}
+.footer-link a:hover{color:#0d6efd}
+.footer-bottom{
+border-top:1px solid rgba(255,255,255,.1);
+margin-top:40px;padding-top:20px;color:#94a3b8
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="site-wrap">
+
+    <div class="site-navbar py-2">
+      <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+
+          <div class="site-logo">
+            <a href="index.html" class="js-logo-clone"><strong class="text-primary">Well</strong>Phoria</a>
+          </div>
+
+          <div class="main-nav d-none d-lg-block">
+            <nav class="site-navigation text-right text-md-center" role="navigation">
+              <ul class="site-menu js-clone-nav d-none d-lg-block">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="shop.html">Mağaza</a></li>
+,                <li><a href="about.html">Hakkımızda</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="icons">
+            <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+            <a href="cart.html" class="icons-btn d-inline-block bag"><span class="icon-shopping-bag"></span></a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+<!-- HERO -->
+<div class="site-blocks-cover overlay" style="background-image:url('images/hero_bg_2.jpg')">
+<div class="container text-center">
+<h1>Birimlerimiz</h1>
+<p>WellPhoria’nın profesyonel ekipleri</p>
+</div>
+</div>
+
+<!-- UNITS -->
+<div class="site-section py-5">
+<div class="container">
+<div class="owl-carousel units-carousel">
+
+<a href="#itModal" class="popup-link">
+<div class="unit-card" data-target="1500">
+<span class="unit-icon icon-laptop"></span>
+<h4>IT Ekibi</h4>
+<div class="counter">0</div>
+</div></a>
+
+<a href="#marketingModal" class="popup-link">
+<div class="unit-card" data-target="850">
+<span class="unit-icon icon-megaphone"></span>
+<h4>Pazarlama</h4>
+<div class="counter">0</div>
+</div></a>
+
+<a href="#argeModal" class="popup-link">
+<div class="unit-card" data-target="420">
+<span class="unit-icon icon-flask"></span>
+<h4>Ar-Ge</h4>
+<div class="counter">0</div>
+</div></a>
+
+<a href="#logisticsModal" class="popup-link">
+<div class="unit-card" data-target="670">
+<span class="unit-icon icon-truck"></span>
+<h4>Lojistik</h4>
+<div class="counter">0</div>
+</div></a>
+
+</div>
+</div>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="site-footer">
+<div class="container">
+<div class="row">
+
+<div class="col-md-4">
+<h5>WellPhoria</h5>
+<p>Sağlıklı yaşamı teknolojiyle birleştiren modern sağlık platformu.</p>
+</div>
+
+<div class="col-md-4 footer-link">
+<h5>Hızlı Linkler</h5>
+<a href="index.html">Ana Sayfa</a>
+<a href="shop.html">Mağaza</a>
+<a href="about.html">Hakkımızda</a>
+<a href="contact.html">İletişim</a>
+</div>
+
+<div class="col-md-4 footer-link">
+<h5>Destek</h5>
+<a href="#">S.S.S</a>
+<a href="#">KVKK</a>
+<a href="#">Gizlilik Politikası</a>
+</div>
+
+</div>
+
+<div class="footer-bottom text-center">
+© 2025 WellPhoria • Tüm Hakları Saklıdır
+</div>
+</div>
+</footer>
+
+<!-- JS -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script>
+$('.units-carousel').owlCarousel({
+loop:true,margin:30,autoplay:true,
+responsive:{0:{items:1},768:{items:2},1200:{items:3}}
+});
+
+$('.popup-link').magnificPopup({type:'inline',midClick:true});
+
+$('.unit-card').each(function(){
+let card=$(this),counter=card.find('.counter'),
+target=card.data('target'),done=false;
+card.hover(function(){
+if(done) return; done=true;
+let i=0,int=setInterval(()=>{
+i+=Math.ceil(target/40);
+if(i>=target){counter.text(target+"+");clearInterval(int)}
+else counter.text(i);
+},25);
+});
+});
+</script>
+
+</body>
+</html>

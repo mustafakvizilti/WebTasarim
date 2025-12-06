@@ -87,7 +87,6 @@
 </body>
 </html>
 <script>
-// Ürün bilgilerini JS nesnesi olarak tanımlıyoruz
 const product = {
     name: "Cefalexin 250mg",
     price: 50,
@@ -96,9 +95,8 @@ const product = {
     image: "images/product_04.png"
 };
 
-// Sepete ekleme işlemi
 document.querySelector('.btn.btn-primary').addEventListener('click', function(e){
-    e.preventDefault(); // sayfanın yenilenmesini engeller
+    e.preventDefault(); 
     let cart = JSON.parse(localStorage.getItem("cart") || "[]");
     cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));

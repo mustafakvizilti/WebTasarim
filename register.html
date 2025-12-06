@@ -62,16 +62,13 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
   const email = document.getElementById("email").value.trim();
   const pass = document.getElementById("password").value;
 
-  // Eski kullanıcıları çekiyoruz
   const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  // Aynı email varsa engelle
   if (users.some(u => u.email === email)) {
     alert("Bu e-posta zaten kayıtlı!");
     return;
   }
 
-  // Yeni kullanıcıyı ekle
   users.push({ name, email, password: pass });
   localStorage.setItem("users", JSON.stringify(users));
 

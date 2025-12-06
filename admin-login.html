@@ -37,18 +37,38 @@
         margin-top: 20px;
         cursor: pointer;
     }
+    .home-btn {
+  display:block;
+  margin-top:15px;
+  padding:10px;
+  background:#e5e7eb;
+  color:#333;
+  text-decoration:none;
+  border-radius:5px;
+  font-weight:600;
+  transition:.3s;
+}
+
+.home-btn:hover {
+  background:#0066ff;
+  color:#fff;
+}
+
 </style>
 </head>
 <body>
+    
 
 <div class="box">
     <h2>Admin Giriş</h2>
     <input type="password" id="pass" placeholder="Şifreyi girin">
     <button onclick="login()">Giriş Yap</button>
+    <a href="index.html" class="home-btn">← Ana Sayfaya Dön</a>
+
 </div>
 
 <script>
-const adminPassword = "12345"; // BURADAN ŞİFREYİ DEĞİŞTİREBİLİRSİN
+const adminPassword = "12345";
 
 function login() {
     let p = document.getElementById("pass").value;

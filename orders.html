@@ -31,7 +31,7 @@
         font-size: 14px;
     }
     thead {
-        background: #4f46e5; /* Colorlib mavi ton */
+        background: #4f46e5; 
         color: white;
         text-transform: uppercase;
         font-size: 13px;
@@ -83,10 +83,8 @@
 </div>
 
 <script>
-// Siparişleri localStorage'dan al
 let orders = JSON.parse(localStorage.getItem("orders") || "[]");
 
-// tabloyu doldur
 function loadOrders() {
     let tbody = document.getElementById("orderList");
     tbody.innerHTML = "";
@@ -106,7 +104,6 @@ function loadOrders() {
     });
 }
 
-// sipariş sil
 function deleteOrder(i) {
     if(confirm("Bu siparişi silmek istediğinize emin misiniz?")){
         orders.splice(i,1);

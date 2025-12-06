@@ -21,13 +21,11 @@
 <script>
 const ANN_KEY = "wp_announcements_v1";
 
-// LocalStorage okuma fonksiyonu
 function readStorage(k, d = []) {
   try { return JSON.parse(localStorage.getItem(k)) || d; }
   catch { return d; }
 }
 
-// Duyuruları yükleme ve tarihe göre sıralama
 function loadAllAnnouncements() {
   const arr = readStorage(ANN_KEY, []);
   const area = document.getElementById("allAnnouncements");
@@ -39,7 +37,6 @@ function loadAllAnnouncements() {
     return;
   }
 
-  // 🔹 Tarihe göre azalan sırala (en yeni üstte)
   arr.sort((a, b) => new Date(b.created) - new Date(a.created));
 
   area.innerHTML = "";

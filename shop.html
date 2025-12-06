@@ -20,12 +20,10 @@
 
 <body>
   <style>
-/* Dropdown kapsayıcı */
 .site-menu li.dropdown {
   position: relative;
 }
 
-/* Dropdown içeriği gizli olacak */
 .site-menu li.dropdown .dropdown-content {
   display: none;
   position: absolute;
@@ -40,7 +38,6 @@
   z-index: 1000;
 }
 
-/* Dropdown linkleri */
 .site-menu li.dropdown .dropdown-content li a {
   color: black;
   padding: 10px 16px;
@@ -48,12 +45,10 @@
   display: block;
 }
 
-/* Hover ile göster */
 .site-menu li.dropdown:hover .dropdown-content {
   display: block;
 }
 
-/* Hover efekti */
 .site-menu li.dropdown .dropdown-content li a:hover {
   background-color: #ddd;
 }
@@ -82,7 +77,6 @@
             
                 <li><a href="index.html">Anasayfa</a></li>
 
-            <!-- Mağaza Dropdown Başlangıç -->
             <li class="dropdown active">
               <a href="shop.html" class="dropbtn">Mağaza</a>
               <ul class="dropdown-content">
@@ -91,7 +85,6 @@
                 <li><a href="basagrisi.html">Ağrı Kesiciler</a></li>
               </ul>
             </li>
-            <!-- Mağaza Dropdown Bitiş -->
 
             <li><a href="about.html">Hakkımızda</a></li>
             <li><a href="contact.html">İletişim</a></li>
@@ -113,7 +106,6 @@
   </div>
 </div>
 
-    <!-- Breadcrumb -->
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
@@ -122,7 +114,6 @@
       </div>
     </div>
 
-    <!-- Öne Çıkan Ürünler -->
     <div class="site-section py-5 bg-light">
       <div class="container">
         <div class="title-section text-center mb-5">
@@ -134,7 +125,6 @@
       </div>
     </div>
 
-    <!-- Footer -->
     <footer class="site-footer bg-light">
       <div class="container">
         <div class="row">
@@ -176,7 +166,6 @@
 
   </div>
 
-  <!-- JS -->
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/jquery-ui.js"></script>
   <script src="js/popper.min.js"></script>
@@ -186,7 +175,6 @@
   <script src="js/aos.js"></script>
   <script src="js/main.js"></script>
 
-  <!-- Ürünleri oluşturma -->
   <script>
     const drugs = [
       "Paracetamol 500mg", "Ibuprofen 400mg", "Amoxicillin 500mg", "Cefalexin 250mg",
@@ -214,7 +202,6 @@
     });
   </script>
 
-  <!-- Owl çalıştırma -->
   <script>
     $(document).ready(function () {
       $('.nonloop-block-3').owlCarousel({

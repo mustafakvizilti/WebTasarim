@@ -17,7 +17,6 @@
 </head>
 <body>
 <div class="site-wrap">
-  <!-- Navbar -->
   <div class="site-navbar py-2">
   <div class="container">
     <div class="d-flex align-items-center justify-content-center">
@@ -36,7 +35,6 @@
   </div>
 </div>
 
-  <!-- Breadcrumb -->
   <div class="bg-light py-3">
     <div class="container">
       <div class="row">
@@ -49,7 +47,6 @@
     </div>
   </div>
 
-  <!-- Ürün Tanıtım -->
   <div class="site-section py-5">
     <div class="container">
       <div class="row">
@@ -72,7 +69,6 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer class="site-footer bg-light">
     <div class="container">
       <div class="row">
@@ -91,7 +87,6 @@
 </body>
 </html>
 <script>
-// Ürün bilgilerini JS nesnesi olarak tanımlıyoruz
 const product = {
     name: "Ibuprofen 400mg",
     price: 45,
@@ -100,9 +95,8 @@ const product = {
     image: "images/product_02.png"
 };
 
-// Sepete ekleme işlemi
 document.querySelector('.btn.btn-primary').addEventListener('click', function(e){
-    e.preventDefault(); // sayfanın yenilenmesini engeller
+    e.preventDefault(); 
     let cart = JSON.parse(localStorage.getItem("cart") || "[]");
     cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
